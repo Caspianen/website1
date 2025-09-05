@@ -4,7 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Heart Particle Animation</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #1a1a1a, #000);
+    }
+    canvas {
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <canvas id="canvas"></canvas>
@@ -27,7 +36,7 @@
     }
 
     // buat partikel
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 800; i++) {
       const t = Math.random() * Math.PI * 2;
       const point = heartFunction(t);
       particles.push({
@@ -38,7 +47,6 @@
         size: Math.random() * 2 + 1,
         opacity: Math.random(),
         glowSpeed: Math.random() * 0.02 + 0.01,
-        color: "rgba(255,105,180,1)" // pink
       });
     }
 
@@ -50,18 +58,18 @@
         let tx, ty;
 
         if (attract) {
-          // saat klik & tahan → partikel mengikuti kursor
-          tx = mouse.x + (Math.random() - 0.5) * 50; 
-          ty = mouse.y + (Math.random() - 0.5) * 50; 
+          // saat ditekan/drag → ngikutin mouse/jari
+          tx = mouse.x;
+          ty = mouse.y;
         } else {
-          // saat dilepas → balik ke love dengan efek berdenyut
+          // balik ke hati + efek berdenyut
           tx = p.targetX + Math.sin(Date.now() * 0.002 + p.x) * 2;
           ty = p.targetY + Math.cos(Date.now() * 0.002 + p.y) * 2;
         }
 
         // interpolasi pergerakan
-        p.x += (tx - p.x) * 0.05;
-        p.y += (ty - p.y) * 0.05;
+        p.x += (tx - p.x) * 0.1;
+        p.y += (ty - p.y) * 0.1;
 
         // glowing
         p.opacity += p.glowSpeed;
@@ -78,17 +86,15 @@
 
     animate();
 
-    // event kontrol mouse
+    // 🎯 Event kontrol untuk PC
     canvas.addEventListener("mousedown", e => {
       attract = true;
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     });
-
     canvas.addEventListener("mouseup", () => {
       attract = false;
     });
-
     canvas.addEventListener("mousemove", e => {
       if (attract) {
         mouse.x = e.clientX;
@@ -96,6 +102,23 @@
       }
     });
 
+    // 🎯 Event kontrol untuk HP
+    canvas.addEventListener("touchstart", e => {
+      attract = true;
+      mouse.x = e.touches[0].clientX;
+      mouse.y = e.touches[0].clientY;
+    });
+    canvas.addEventListener("touchend", () => {
+      attract = false;
+    });
+    canvas.addEventListener("touchmove", e => {
+      if (attract) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+      }
+    });
+
+    // resize
     window.addEventListener("resize", () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
