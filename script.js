@@ -44,8 +44,8 @@ function showLetter() {
   const letter = document.createElement("div");
   letter.classList.add("letter-box");
   letter.innerHTML = `
-    <h2>💌 Untuk Cintaku 💌</h2>
-    <p>Sayangku, selamat ulang tahun 🎂</p>
+    <h2>💌 Untuk Cintaku shiraaa/cila 💌</h2>
+    <p>Sayangku, selamat ulang tahun nya ke 15 🎂</p>
     <p>Hari ini bukan hanya tentang bertambahnya usia, tapi juga tentang betapa beruntungnya aku memiliki kamu di hidupku.</p>
     <p>Kamu adalah alasan aku tersenyum setiap hari, pelangi setelah hujan, dan cahaya di setiap gelapku. 🌈✨</p>
     <p>Semoga semua doa dan harapanmu terkabul, dan semoga aku selalu jadi bagian dari kebahagiaanmu. 💖</p>
