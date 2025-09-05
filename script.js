@@ -1,31 +1,20 @@
-// kontrol mouse
-canvas.addEventListener("mousedown", e => {
-  attract = true;
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
-canvas.addEventListener("mouseup", () => {
-  attract = false;
-});
-canvas.addEventListener("mousemove", e => {
-  if (attract) {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  }
-});
-
-// kontrol touch (HP)
+// 🎯 Event kontrol untuk HP
 canvas.addEventListener("touchstart", e => {
+  e.preventDefault();
   attract = true;
   mouse.x = e.touches[0].clientX;
   mouse.y = e.touches[0].clientY;
-});
-canvas.addEventListener("touchend", () => {
+}, { passive: false });
+
+canvas.addEventListener("touchend", e => {
+  e.preventDefault();
   attract = false;
-});
+}, { passive: false });
+
 canvas.addEventListener("touchmove", e => {
+  e.preventDefault();
   if (attract) {
     mouse.x = e.touches[0].clientX;
     mouse.y = e.touches[0].clientY;
   }
-});
+}, { passive: false });
